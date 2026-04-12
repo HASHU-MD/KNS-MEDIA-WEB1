@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>අවුරුදු නැකත් 2026 |  HASHAN-CREATION </title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@700&family=Inter:wght@300;400;600;800&display=swap');
+
+        :root {
+            --gold: #ffcc00;
+            --neon-blue: #00d2ff;
+            --dark-bg: #030303;
+            --card-bg: rgba(20, 20, 20, 0.6);
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: #ffffff;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* --- Realistic Animated Sky --- */
+        .sky-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at top, #1a0a0a 0%, #000 100%);
+            z-index: -2;
+        }
+
+        /* Moving Birds Logic */
+        .bird-box {
+            position: absolute;
+            top: 20%; left: -10%;
+            animation: fly-across 15s linear infinite;
+        }
+
+        .bird {
+            position: relative;
+            width: 40px; height: 15px;
+            background: var(--gold);
+            clip-path: polygon(0% 50%, 25% 0%, 50% 50%, 75% 0%, 100% 50%, 50% 100%);
+            animation: wing-beat 0.3s ease-in-out infinite alternate;
+        }
+
+        @keyframes fly-across {
+            0% { left: -10%; transform: translateY(0) scale(0.6); }
+            50% { transform: translateY(50px) scale(0.8); }
+            100% { left: 110%; transform: translateY(-20px) scale(0.6); }
+        }
+
+        @keyframes wing-beat {
+            0% { transform: scaleY(1); opacity: 0.8; }
+            100% { transform: scaleY(0.2); opacity: 1; }
+        }
+
+        /* --- Header & Layout --- */
+        header {
+            text-align: center;
+            padding: 80px 20px 40px;
+            z-index: 1;
+        }
+
+        .brand-name {
+            font-size: 0.9rem;
+            letter-spacing: 6px;
+            color: var(--neon-blue);
+            text-transform: uppercase;
+            font-weight: 800;
+            margin-bottom: 15px;
+            display: block;
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        h1 {
+            font-family: 'Abhaya Libre', serif;
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            color: var(--gold);
+            text-shadow: 0 0 30px rgba(255, 204, 0, 0.4);
+            margin-bottom: 10px;
+        }
+
+        /* --- 3D Floating Timer --- */
+        .timer-grid {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 60px;
+            perspective: 1000px;
+        }
+
+        .timer-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            padding: 20px;
+            border-radius: 24px;
+            min-width: 100px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            transition: 0.3s;
+        }
+
+        .timer-card span {
+            display: block;
+            font-size: 3rem;
+            font-weight: 800;
+            color: #fff;
+            line-height: 1;
+        }
+
+        .timer-card p {
+            font-size: 0.7rem;
+            color: #888;
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+
+        /* --- Interactive Nakath Section --- */
+        .content-section {
+            width: 90%;
+            max-width: 900px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding-bottom: 100px;
+        }
+
+        .nakath-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 30px;
+            border-radius: 28px;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .nakath-card:hover {
+            background: rgba(40, 40, 40, 0.8);
+            transform: translateY(-10px) rotateX(5deg);
+            border-color: var(--gold);
+            box-shadow: 0 15px 50px rgba(255, 204, 0, 0.15);
+        }
+
+        .nakath-card h3 {
+            color: var(--gold);
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            font-family: 'Abhaya Libre', serif;
+        }
+
+        .nakath-card .btn-more {
+            margin-top: 20px;
+            color: var(--neon-blue);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- Popup System --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(15px);
+        }
+
+        .modal-box {
+            background: #0a0a0a;
+            padding: 40px;
+            border-radius: 35px;
+            border: 1px solid var(--gold);
+            max-width: 550px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 0 100px rgba(255, 204, 0, 0.1);
+            animation: modalPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes modalPop { from { transform: scale(0.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        .modal-box h2 { color: var(--gold); margin-bottom: 20px; font-family: 'Abhaya Libre', serif; font-size: 2rem; }
+        .modal-box p { color: #ccc; line-height: 1.8; font-size: 1.1rem; }
+
+        .close-modal {
+            margin-top: 30px;
+            background: var(--gold);
+            border: none;
+            padding: 12px 40px;
+            border-radius: 50px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .close-modal:hover { transform: scale(1.1); box-shadow: 0 0 20px var(--gold); }
+
+        footer {
+            padding: 50px;
+            text-align: center;
+            color: #444;
+            font-size: 0.8rem;
+            border-top: 1px solid #111;
+            width: 100%;
+        }
+
+        /* Responsive Fixes */
+        @media (max-width: 600px) {
+            .timer-grid { gap: 10px; }
+            .timer-card { min-width: 70px; padding: 15px; }
+            .timer-card span { font-size: 1.8rem; }
+            h1 { font-size: 2.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sky-container">
+        <div class="bird-box" style="top:15%; animation-duration: 18s;"><div class="bird"></div></div>
+        <div class="bird-box" style="top:45%; animation-duration: 22s; animation-delay: -5s;"><div class="bird" style="transform: scale(0.5);"></div></div>
+        <div class="bird-box" style="top:70%; animation-duration: 14s; animation-delay: -10s;"><div class="bird" style="transform: scale(0.7);"></div></div>
+    </div>
+
+    <header>
+        <span class="brand-name">MO/KOLARAGAMA N/S MEDIA UNIT</span>
+        <h1>අවුරුදු නැකත් 2026</h1>
+    </header>
+
+    <div class="timer-grid">
+        <div class="timer-card"><span id="days">00</span><p>Days</p></div>
+        <div class="timer-card"><span id="hours">00</span><p>Hours</p></div>
+        <div class="timer-card"><span id="minutes">00</span><p>Mins</p></div>
+        <div class="timer-card"><span id="seconds">00</span><p>Secs</p></div>
+    </div>
+
+    <div class="content-section">
+        <div class="nakath-card" onclick="showNakath('අලුත් අවුරුදු උදාව', '2026 අප්‍රේල් මස 14 වන අඟහරුවාදා අපරභාග 02:07 ට අලුත් අවුරුද්ද උදාවෙයි. සියලු දෙනාටම සාමය සතුට පිරි සුභ අලුත් අවුරුද්දක් වේවා!')">
+            <h3>අලුත් අවුරුදු උදාව</h3>
+            <p>අප්‍රේල් 14 අඟහරුවාදා...</p>
+            <div class="btn-more">Click to View Time →</div>
+        </div>
+
+        <div class="nakath-card" onclick="showNakath('පුණ්‍ය කාලය', 'අප්‍රේල් 14 වන අඟහරුවාදා පූර්වභාග 07:43 සිට අපරභාග 08:31 දක්වා පුණ්‍ය කාලය බැවින් ආහාර පාන අතහැර ආගමික වතාවත්වල නිරත වීම මැනවි.')">
+            <h3>පුණ්‍ය කාලය</h3>
+            <p>ආගමික වතාවත්වලට මුල් තැන දෙන්න...</p>
+            <div class="btn-more">Click to View Time →</div>
+        </div>
+
+        <div class="nakath-card" onclick="showNakath('ආහාර පිසීමේ නැකත', 'අප්‍රේල් 14 වන අඟහරුවාදා අපරභාග 02:42 ට රතු පැහැති වස්ත්‍ර ඇඳ නැගෙනහිර දිශාව බලා ලිප් බැඳ ගිනි මොලවා රතු සහල් බතක් පිළියෙල කරගන්න.')">
+            <h3>ආහාර පිසීමේ නැකත</h3>
+            <p>නැගෙනහිර දිශාව බලා...</p>
+            <div class="btn-more">Click to View Time →</div>
+        </div>
+
+        <div class="nakath-card" onclick="showNakath('වැඩ ඇල්ලීම හා ආහාර අනුභවය', 'අප්‍රේල් 14 වන අඟහරුවාදා අපරභාග 03:34 ට රතු පැහැති වස්ත්‍ර ඇඳ නැගෙනහිර දිශාව බලා සියලු චාරිත්‍ර ඉටු කිරීම මැනවි.')">
+            <h3>වැඩ ඇල්ලීම හා අනුභවය</h3>
+            <p>සියලු ගනුදෙනු හා චාරිත්‍ර...</p>
+            <div class="btn-more">Click to View Time →</div>
+        </div>
+    </div>
+
+    <div id="popup" class="modal-overlay">
+        <div class="modal-box">
+            <h2 id="p-title">Title</h2>
+            <p id="p-desc">Description</p>
+            <button class="close-modal" onclick="closeNakath()">Close</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>POWERED BY KOULARAGAMA NATIONAL SCHOOL</p>
+        <p style="margin-top: 10px; color: #222;">&copy; 2026 ALL RIGHTS RESERVED</p>
+    </footer>
+
+    <script>
+        // --- Countdown Engine ---
+        const target = new Date("April 14, 2026 14:07:00").getTime();
+
+        function updateTime() {
+            const now = new Date().getTime();
+            const diff = target - now;
+
+            if (diff > 0) {
+                document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+                document.getElementById("hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                document.getElementById("minutes").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                document.getElementById("seconds").innerText = Math.floor((diff % (1000 * 60)) / 1000);
+            } else {
+                document.querySelector("header h1").innerText = "සුභ අලුත් අවුරුද්දක් වේවා!";
+            }
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        // --- Interaction Logic ---
+        function showNakath(title, desc) {
+            document.getElementById("p-title").innerText = title;
+            document.getElementById("p-desc").innerText = desc;
+            document.getElementById("popup").style.display = "flex";
+        }
+
+        function closeNakath() {
+            document.getElementById("popup").style.display = "none";
+        }
+
+        // --- Smooth Mouse Parallax for Cards ---
+        document.querySelectorAll('.nakath-card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                let rect = card.getBoundingClientRect();
+                let x = e.clientX - rect.left;
+                let y = e.clientY - rect.top;
+                card.style.setProperty('--x', x + 'px');
+                card.style.setProperty('--y', y + 'px');
+            });
+        });
+    </script>
+</body>
+  </html>
